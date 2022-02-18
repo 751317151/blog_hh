@@ -5,11 +5,11 @@
     <div class="comment-wrapper">
       <div style="display:flex;width:100%">
         <v-avatar size="36">
-          <img
+          <img class="1"
             v-if="this.$store.state.avatar"
             :src="this.$store.state.avatar"
           />
-          <img
+          <img class="2"
             v-else
             :src="this.$store.state.blogInfo.websiteConfig.touristAvatar"
           />

@@ -2,7 +2,9 @@ package com.minzheng.blog.config;
 
 
 import com.minzheng.blog.handler.PageableHandlerInterceptor;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
@@ -20,6 +22,11 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
     @Value("${upload.local.path}")
     private String filepath;
+
+    @Bean
+    ModelMapper modelMapper() {
+        return new ModelMapper();
+    }
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {

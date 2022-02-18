@@ -71,4 +71,8 @@ public class ArticleHomeDTO {
      */
     private List<TagDTO> tagDTOList;
 
+    private Integer status;
+
+    private Integer isDelete;
+
 }

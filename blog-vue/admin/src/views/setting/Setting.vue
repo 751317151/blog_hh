@@ -75,6 +75,19 @@
           </el-button>
         </el-form>
       </el-tab-pane>
+      <!-- 同步ES -->
+      <el-tab-pane label="同步ES" name="inites">
+        <el-form label-width="70px" style="width:320px">
+          <el-button
+            type="primary"
+            size="medium"
+            style="margin-left:4.4rem"
+            @click="initEs"
+          >
+            同步
+          </el-button>
+        </el-form>
+      </el-tab-pane>
     </el-tabs>
   </el-card>
 </template>
@@ -97,6 +110,12 @@ export default {
     };
   },
   methods: {
+    initEs(){
+      console.log("同步")
+      this.axios.post("/api/admin/initEsData",{}).then(res => {
+        console.log(res);
+      })
+    },
     handleClick(tab) {
       if (tab.index == 2 && this.notice == "") {
         this.axios.get("/api/admin/notice").then(({ data }) => {

@@ -21,7 +21,7 @@ import org.springframework.data.elasticsearch.annotations.FieldType;
 @AllArgsConstructor
 @NoArgsConstructor
 @Document(indexName = "article")
-public class ArticleSearchDTO {
+public class ArticleSearchDTO  {
 
     /**
      * 文章id
@@ -32,13 +32,13 @@ public class ArticleSearchDTO {
     /**
      * 文章标题
      */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @Field(type = FieldType.Text,searchAnalyzer="ik_smart", analyzer = "ik_max_word")
     private String articleTitle;
 
     /**
      * 文章内容
      */
-    @Field(type = FieldType.Text, analyzer = "ik_max_word")
+    @Field(type = FieldType.Text,searchAnalyzer="ik_smart", analyzer = "ik_max_word")
     private String articleContent;
 
     /**

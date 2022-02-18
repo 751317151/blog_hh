@@ -1,10 +1,13 @@
 package com.minzheng.blog.controller;
 
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.minzheng.blog.annotation.OptLog;
 import com.minzheng.blog.dto.*;
 import com.minzheng.blog.enums.FilePathEnum;
 import com.minzheng.blog.service.ArticleService;
+import com.minzheng.blog.service.SearchService;
 import com.minzheng.blog.strategy.context.UploadStrategyContext;
 import com.minzheng.blog.vo.*;
 import io.swagger.annotations.Api;
@@ -34,6 +37,8 @@ public class ArticleController {
     private ArticleService articleService;
     @Autowired
     private UploadStrategyContext uploadStrategyContext;
+    @Autowired
+    private SearchService searchService;
 
     /**
      * 查看文章归档
@@ -55,6 +60,30 @@ public class ArticleController {
     @GetMapping("/articles")
     public Result<List<ArticleHomeDTO>> listArticles() {
         return Result.ok(articleService.listArticles());
+    }
+
+    @ApiOperation(value = "同步ES数据")
+    @PostMapping("/admin/initEsData")
+    public Result<PageResult<ArticleBackDTO>> initEsData() {
+
+        int size = 10000;
+        Page page = new Page();
+        page.setSize(size);
+
+        long total = 0;
+
+        for (int i = 0; ; i ++) {
+            page.setCurrent(i);
+            List<ArticleHomeDTO> list = articleService.paging(page);
+            int num = searchService.initEsData(list);
+            total += num;
+
+            // 当一页查不出10000条的时候，说明是最后一页了
+            if(list.size() < size) {
+                break;
+            }
+        }
+        return Result.ok(null,"ES索引初始化成功，共 " + total + " 条记录！");
     }
 
     /**

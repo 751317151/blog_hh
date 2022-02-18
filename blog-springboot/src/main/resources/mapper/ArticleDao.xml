@@ -12,6 +12,8 @@
         <result column="is_top" property="isTop"/>
         <result column="category_id" property="categoryId"/>
         <result column="category_name" property="categoryName"/>
+        <result column="status" property="status"/>
+        <result column="is_delete" property="isDelete"/>
         <collection property="tagDTOList" ofType="com.minzheng.blog.dto.TagDTO">
             <id column="tag_id" property="id"/>
             <result column="tag_name" property="tagName"/>
@@ -75,6 +77,8 @@
 	 a.is_top,
 	 a.category_id,
 	 category_name,
+	 a.status,
+	 a.is_delete,
 	 t.id AS tag_id,
 	 t.tag_name
      FROM
@@ -87,7 +91,9 @@
 	    type,
 		is_top,
 		create_time,
-		category_id
+		category_id,
+		status,
+		is_delete
 	    FROM
  		tb_article
  		WHERE is_delete = 0

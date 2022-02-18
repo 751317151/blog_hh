@@ -67,6 +67,11 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
     private ArticleTagService articleTagService;
 
     @Override
+    public List<ArticleHomeDTO> paging(Page page) {
+        return articleDao.listArticles(page.getCurrent(),page.getSize());
+    }
+
+    @Override
     public PageResult<ArchiveDTO> listArchives() {
         Page<Article> page = new Page<>(PageUtils.getCurrent(), PageUtils.getSize());
         // 获取分页数据
@@ -88,6 +93,7 @@ public class ArticleServiceImpl extends ServiceImpl<ArticleDao, Article> impleme
         }
         // 查询后台文章
         List<ArticleBackDTO> articleBackDTOList = articleDao.listArticleBacks(PageUtils.getLimitCurrent(), PageUtils.getSize(), condition);
+
         // 查询文章点赞量和浏览量
         Map<Object, Double> viewsCountMap = redisService.zAllScore(ARTICLE_VIEWS_COUNT);
         Map<String, Object> likeCountMap = redisService.hGetAll(ARTICLE_LIKE_COUNT);

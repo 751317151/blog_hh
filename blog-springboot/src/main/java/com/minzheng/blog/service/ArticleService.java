@@ -1,5 +1,6 @@
 package com.minzheng.blog.service;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.minzheng.blog.dto.*;
 import com.minzheng.blog.entity.Article;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -14,6 +15,8 @@ import java.util.List;
  * @date 2021/07/29
  */
 public interface ArticleService extends IService<Article> {
+
+    List<ArticleHomeDTO> paging(Page page);
 
     /**
      * 查询文章归档
