@@ -208,7 +208,7 @@
           <!-- 分割线 -->
           <hr />
           <!-- 评论 -->
-          <comment :type="commentType" @getCommentCount="getCommentCount" />
+          <Comment :type="commentType" @getCommentCount="getCommentCount" />
         </v-card>
       </v-col>
       <!-- 侧边功能 -->
